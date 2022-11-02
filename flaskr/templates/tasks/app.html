@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Tasks{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+ <table>
+  <tr>
+    <th>To Do</th>
+    <th>Doing</th>
+    <th>Done</th>
+  </tr>
+  <tr>
+    <td>
+      {% for to_do in to_do_lst %}
+      <ul>
+        {{to_do}}
+      </ul>
+      {% endfor %}
+    </td>
+    <td>
+      {% for doing in doing_lst %}
+      <ul>
+        {{doing}}
+      </ul>
+      {% endfor %}
+    </td>
+    <td>
+      <ul>
+        {% for done in done_lst %}
+      <ul>
+        {{done}}
+      </ul>
+      {% endfor %}
+    </td>
+  </tr>
+</table> 
+<br>
+<hr>
+<br>
+ <table>
+  <tr>
+    <th>Add Task</th>
+    <th>Move Task</th>
+    <th>Delete Task</th>
+  </tr>
+  <tr>
+    <td>
+      <form method="post" name="create">
+        <input type="operation" name="operation" value="create" hidden>
+        <label for="task">Task</label>
+        <input name="task" id="task" required>
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="ToDo">ToDo</option>
+          <option value="Doing">Doing</option>
+          <option value="Done">Done</option>
+        </select>
+        <hr>
+        <input type="submit" value="Create Task">
+      </form>
+    </td>
+    <td>
+      <form method="post" name="change">
+        <input type="operation" name="operation" value="change" hidden>
+        <label for="task">Task</label>
+        <select id="task" name="task">>
+          {% for task in task_lst %}
+          <option value="{{task}}">{{task}}</option>
+          {% endfor %}
+        </select>
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="ToDo">ToDo</option>
+          <option value="Doing">Doing</option>
+          <option value="Done">Done</option>
+        </select>
+        <hr>
+        <input type="submit" value="Change Task">
+      </form>
+    </td>
+    <td>
+      <form method="post" name="delete">
+        <input type="operation" name="operation" value="delete" hidden>
+        <label for="task">Task</label>
+        <select id="task" name="task">
+          {% for task in task_lst %}
+          <option value="{{task}}">{{task}}</option>
+          {% endfor %}
+        </select>
+        <hr>
+        <input type="submit" value="Delete Task">
+      </form>
+    </td>
+  </tr>
+</table> 
+{% endblock %}
